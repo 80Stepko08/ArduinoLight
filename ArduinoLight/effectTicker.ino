@@ -2,7 +2,7 @@ uint32_t effTimer;
 byte ind;
 void effectsTick() {
   {
-    if (ONflag && millis() - effTimer >= ((currentMode < 7  || currentMode > 20) ? modes[currentMode].Speed : 50) ) {
+    if (ONflag && millis() - effTimer >= ((currentMode < 9  || currentMode > 20) ? modes[currentMode].Speed : 50) ) {
       effTimer = millis(); switch (currentMode) {
           //|номер   |название функции эффекта     |тоже надо|
              case 0 : lighterRoutine();             break;
@@ -13,6 +13,7 @@ void effectsTick() {
              case 5 : sparkles();                   break;
              case 6 : fire();                       break;
              case 7 : fireworks();                  break;
+             case 8 : BBalls();                     break;
 
       }
       switch (numHold) {    // индикатор уровня яркости/скорости/масштаба
