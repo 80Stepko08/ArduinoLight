@@ -25,3 +25,6 @@ byte hue;
 int16_t position;
 boolean direction;
 bool gReverseDirection = false;
+void dimAll(uint8_t value) { 
+    fadeToBlackBy (leds, NUM_LEDS, 255U - value);  //fadeToBlackBy
+}

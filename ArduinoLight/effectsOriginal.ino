@@ -83,7 +83,7 @@ void sparkles() {
   byte thisNum = random(0, NUM_LEDS);
   if (getPixColor(thisNum) == 0)
     leds[thisNum] = CHSV(random(0, 255), 255, 255);
-  fade();
+  dimAll(125);
 }
 
 // ****************************** ОГОНЬ ******************************
@@ -134,19 +134,3 @@ void Fire2012WithPalette()
     leds[pixelnumber] = color;
   }
 }
-
-// *************** ВИНИГРЕТ ***************
-void vinigret() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    if ((uint32_t)getPixColor(i) == 0) {
-
-    }
-  }
-}
-
-// ****************** СЛУЖЕБНЫЕ ФУНКЦИИ *******************
-void fade() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    if ((uint32_t)getPixColor(i) == 0) continue;
-    leds[i].fadeToBlackBy(TRACK_STEP);
-    }}
