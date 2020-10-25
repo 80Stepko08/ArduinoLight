@@ -14,16 +14,15 @@
 #include "Constants.h"
 // ----------------- ПЕРЕМЕННЫЕ ------------------
 struct {
-  byte Brightness = 10;
-  byte Speed = 30;
-  byte Scale = 10;
+  byte Brightness = 255;
+  byte Speed = 125;
+  byte Scale = 101;
 } modes[MODE_AMOUNT]; //настройки эффекта по умолчанию
-int8_t currentMode = 10;
+int8_t currentMode = 1;
 boolean loadingFlag = true;
 boolean ONflag = true;
 byte numHold;
 unsigned long numHold_Timer = 0;
-unsigned char matrixValue[8][16];
 
 
 void setup() {
@@ -44,12 +43,7 @@ void setup() {
       modes[x].Speed = EEPROM.read(x * 3 + 12);
       modes[x].Scale = EEPROM.read(x * 3 + 13);
     }
-
   }
-if (FIRE_PALETTE == 0) gPal = HeatColors_p;
-  else if (FIRE_PALETTE == 1) gPal = CRGBPalette16( CRGB::Black, CRGB::Red, CRGB::Yellow, CRGB::White);
-  else if (FIRE_PALETTE == 2) gPal = CRGBPalette16( CRGB::Black, CRGB::Blue, CRGB::Aqua,  CRGB::White);
-  else if (FIRE_PALETTE == 3) gPal = CRGBPalette16( CRGB::Black, CRGB::Red, CRGB::White);
 }
 
 void loop() {

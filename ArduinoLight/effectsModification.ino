@@ -1,32 +1,3 @@
-//-----------------Модификованые эффекты Гайвера-------
-void lighterRoutine() {
-  dimAll(125);
-  if (direction) {
-    position++;
-    if (position > NUM_LEDS - 2) {
-      direction = false;
-    }
-  } else {
-    position--;
-    if (position < 1) {
-      direction = true;
-    }
-  }
-  leds[position] = CHSV(modes[currentMode].Scale, 255, 255);
-  if(modes[currentMode].Scale % 2)
-  leds[NUM_LEDS - position] = CHSV(modes[currentMode].Scale, 255, 255);
-}
-
-void color(){
-  fillAll(CHSV(modes[currentMode].Speed, modes[currentMode].Scale, 255));
-}
-
-void rainbowRoutine() {
-  hue += 2;
-  for (int i = 0; i < NUM_LEDS; i++)
-    leds[i] = CHSV((byte)(hue + i * modes[currentMode].Scale), 255, 255);
-}
-
 //------------------Эффекты от WLED-----------
 //----------- Салют 1D------------------------
 #define NUM_SPARKS (NUM_LEDS / 2)
@@ -128,10 +99,10 @@ void explodeLoop() {
   }
   FastLED.clear();
 }
-
+//----------Мячики------------------
 #define GRAVITY           -9.81              // Downward (negative) acceleration of gravity in m/s^2
 #define h0                1                  // Starting height, in meters, of the ball (strip length)
-#define NUM_BALLS         1                  // Number of bouncing balls you want (recommend < 7, but 20 is fun in its own way)
+#define NUM_BALLS         3                  // Number of bouncing balls you want (recommend < 7, but 20 is fun in its own way)
 
 float h[NUM_BALLS] ;                         // An array of heights
 float vImpact0 = sqrt( -2 * GRAVITY * h0 );  // Impact velocity of the ball when it hits the ground if "dropped" from the top of the strip
@@ -172,9 +143,8 @@ loadingFlag = false;}
 
   //Choose color of LEDs, then the "pos" LED on
   for (int i = 0 ; i < NUM_BALLS ; i++) leds[pos[i]] = CHSV( uint8_t (i * 40) , 255, 255);
-  FastLED.show();
   //Then off for the next loop around
   for (int i = 0 ; i < NUM_BALLS ; i++) {
-    leds[pos[i]] = CRGB::Black;
+    leds[pos[i]] = CRGB::White;
   }
 }

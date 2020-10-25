@@ -13,10 +13,10 @@ uint32_t getPixColor(int thisPixel) {
 #define TRACK_STEP 50
 
 // ****************************** ОГОНЁК ******************************
-void lighter() {
-  FastLED.clear();
+void lighterRoutine() {
+  dimAll(125);
   if (direction) {
-    position++;
+    position + 0.25;
     if (position > NUM_LEDS - 2) {
       direction = false;
     }
@@ -26,8 +26,11 @@ void lighter() {
       direction = true;
     }
   }
-  leds[position] = CRGB::White;
+  leds[position] = CHSV(modes[currentMode].Scale, 255, 255);
+  if (modes[currentMode].Speed % 2)
+    leds[NUM_LEDS - position] = CHSV(modes[currentMode].Scale, 255, 255);
 }
+
 
 // ****************************** СВЕТЛЯЧКИ ******************************
 #define MAX_SPEED 30
@@ -72,10 +75,10 @@ void colors() {
 }
 
 // ****************************** РАДУГА ******************************
-void rainbow() {
+void rainbowRoutine() {
   hue += 2;
   for (int i = 0; i < NUM_LEDS; i++)
-    leds[i] = CHSV((byte)(hue + i * float(255 / NUM_LEDS)), 255, 255);
+    leds[i] = CHSV((byte)(hue + i * modes[currentMode].Scale), 255, 255);
 }
 
 // ****************************** КОНФЕТТИ ******************************
@@ -124,7 +127,7 @@ void Fire2012WithPalette()
     // Scale the heat value from 0-255 down to 0-240
     // for best results with color palettes.
     byte colorindex = scale8( heat[j], 240);
-    CRGB color = ColorFromPalette( gPal, colorindex);
+    CRGB color = ColorFromPalette(LavaColors_p, colorindex);
     int pixelnumber;
     if ( gReverseDirection ) {
       pixelnumber = (NUM_LEDS - 1) - j;
@@ -134,3 +137,17 @@ void Fire2012WithPalette()
     leds[pixelnumber] = color;
   }
 }
+//----------------Цвет------------------
+void color() {
+  fillAll(CHSV(modes[currentMode].Speed, modes[currentMode].Scale, 255));
+}
+//------------------Шум2D----------------
+  int counter = 0;
+  #define FOR_i(from, to) for(int i = (from); i < (to); i++)
+  #define FOR_j(from, to) for(int j = (from); j < (to); j++)
+  void NoiseRoutine(){
+  FOR_i(0, NUM_LEDS) {
+    leds[i] = ColorFromPalette(RainbowColors_p, (inoise8(i * modes[currentMode].Scale, counter)), 255, LINEARBLEND);
+  }
+  counter += 20;
+  }
