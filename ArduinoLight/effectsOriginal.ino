@@ -28,7 +28,7 @@ void lighterRoutine() {
   }
   leds[position] = CHSV(modes[currentMode].Scale, 255, 255);
   if (modes[currentMode].Speed % 2)
-    leds[NUM_LEDS - position] = CHSV(modes[currentMode].Scale, 255, 255);
+    leds[NUM_LEDS - 1- position] = CHSV(modes[currentMode].Scale, 255, 255);
 }
 
 
